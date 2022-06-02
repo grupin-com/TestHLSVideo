@@ -15,7 +15,6 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.lukasdylan.hlsvideo.databinding.ActivityMainBinding
 import kotlin.math.abs
-import kotlin.math.max
 
 class MainActivity : AppCompatActivity() {
 
@@ -88,22 +87,20 @@ class MainActivity : AppCompatActivity() {
                         return@setOnTouchListener if (abs(upDX) < 10f && abs(upDY) < 10f) {
                             view.performClick()
                         } else {
-//                            Log.d("X", "${view.x}")
-//                            Log.d("Parent", "${(parentWidth - 32) / 2}")
-//                            val currentX = view.x
-//                            if (currentX < (parentWidth - 32 / 2)) {
-//                                Log.d("X1", "left")
-//                                view.animate()
-//                                    .x(layoutParams.leftMargin.toFloat())
-//                                    .setDuration(0)
-//                                    .start()
-//                            } else {
-//                                Log.d("X1", "right")
-//                                view.animate()
-//                                    .x((parentWidth - view.width - layoutParams.rightMargin).toFloat())
-//                                    .setDuration(0)
-//                                    .start()
-//                            }
+                            val currentX = view.x + (view.width / 2)
+                            val halfParentWidth =
+                                (parentWidth - layoutParams.leftMargin - layoutParams.rightMargin) / 2
+                            if (currentX < halfParentWidth) {
+                                view.animate()
+                                    .x(layoutParams.leftMargin.toFloat())
+                                    .setDuration(0)
+                                    .start()
+                            } else {
+                                view.animate()
+                                    .x((parentWidth - view.width - layoutParams.rightMargin).toFloat())
+                                    .setDuration(0)
+                                    .start()
+                            }
                             true
                         }
                     }
